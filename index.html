@@ -682,7 +682,7 @@ main{display:grid;grid-template-columns:340px 1fr;min-height:0}
 #dayhead input{border:0;border-bottom:1px dashed var(--line);background:transparent;padding:2px 0;width:100%}
 #dayhead .t{font:700 16px "Noto Serif TC",serif}#dayhead .s{color:var(--mute);font-size:12px}
 .bar{display:flex;gap:6px;flex-wrap:wrap}.bar .on{background:var(--route);color:#fff;border-color:var(--route)}
-#wx{padding:6px 12px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.55;background:#eef4f2;color:var(--ink)}#wx .wh{display:flex;justify-content:space-between;align-items:center;gap:6px}#wx button{font-size:12px;padding:1px 8px}#list{flex:1;overflow:auto;margin:0;padding:6px 8px;list-style:none}
+#wx{display:none;position:fixed;z-index:1100;top:56px;left:352px;width:300px;padding:8px 12px;font-size:13px;line-height:1.55;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003}#wx.open{display:block}#wx .wh span{display:flex;gap:4px}#hint{display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--route);color:#fff;padding:6px 14px;border-radius:99px;z-index:1200;font-size:14px;box-shadow:0 2px 8px #0005}#hint.on{display:block}.dh1{display:flex;gap:6px;align-items:center}.dh1 input{flex:1;min-width:0}.dh1 button{min-width:38px;padding:2px 6px;font-size:16px}#wx .wh{display:flex;justify-content:space-between;align-items:center;gap:6px}#wx button{font-size:12px;padding:1px 8px}#list{flex:1;overflow:auto;margin:0;padding:6px 8px;list-style:none}
 #list li.pt.drag{opacity:.45}#list li.ov{box-shadow:0 -3px 0 var(--route)}.hd{cursor:grab;touch-action:none;user-select:none;color:var(--mute);padding:0 2px;font-size:16px}#list li.pt{display:flex;align-items:center;gap:8px;padding:6px 6px;border-radius:6px;cursor:pointer}
 #list li.pt:hover{background:#e6eeea}#list li.pt.sel{background:#d8ebe9;outline:1px solid var(--acc)}
 .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;display:grid;place-items:center;font-weight:700}
@@ -702,22 +702,23 @@ li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);c
 #detail .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 #detail p{margin:0;font-size:13px}#detail .x{position:absolute;top:6px;right:6px;background:#fffc}
 .tip{font-size:12px;color:var(--mute)}
-@supports(height:100dvh){body{height:100dvh}}#bt{display:none}
+@supports(height:100dvh){body{height:100dvh}}#vm{display:none}.nt{display:none;white-space:normal;color:var(--mute);font-size:13px}#vm button{border-radius:0;border-color:#47616a;background:transparent;color:#e8f1ee;margin:0 -1px 0 0}#vm button.on{background:#e8f1ee;color:var(--ink)}
 @media(max-width:760px){
-body{font-size:15px}header{padding:6px 10px;gap:6px}header h1{font-size:16px;white-space:nowrap}header button{font-size:13px;padding:3px 8px}#bt{display:inline-block}
-main{grid-template-columns:1fr;grid-template-rows:56dvh 1fr}body.big main{grid-template-rows:80dvh 1fr}
-#side{border:0;border-top:1px solid var(--line);overflow:auto;display:block}
+body{font-size:15px}header{padding:6px 10px;gap:6px}header h1{font-size:16px;white-space:nowrap}header button{font-size:13px;padding:3px 8px}#vm{display:flex}
+main{grid-template-columns:1fr;grid-template-rows:56dvh 1fr}body.vm-map main{grid-template-rows:auto 1fr}body.vm-map #side{order:-1;overflow:visible}body.vm-map .dh2,body.vm-map #list{display:none}
+body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-text .nt{display:block}body.vm-text .nm b{white-space:normal;font-size:16px}body.vm-text .nm small{font-size:13px}body.vm-text #detail{max-height:80dvh}
+#map{order:1}#side{order:2;border:0;border-top:1px solid var(--line);overflow:auto;display:block}#wx{top:50px;left:8px;right:8px;width:auto}
 #chips{position:sticky;top:0;background:var(--panel);z-index:5}#chips button{min-height:34px}
 #list{overflow:visible}button{min-height:34px}
 #list li.pt{padding:9px 4px}.hd{padding:6px 8px;font-size:20px}.ops button{padding:2px 10px;font-size:16px}.n{width:28px;height:28px;font-size:13px}
 #detail{top:auto;bottom:0;left:0;right:0;width:auto;max-height:50dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}#detail img{height:140px}
 #detail input,#detail textarea,#detail select,#dayhead input{font-size:16px;padding:6px}
-.lg{font-size:11px;padding:4px 7px;line-height:1.5}.lbl{font-size:11px}#wx{font-size:13px}}
+.lg{font-size:11px;padding:4px 7px;line-height:1.5}.lbl{font-size:11px}}
 </style></head><body>
 <header><h1>北歐行程攻略</h1>
-<button id="bt">⛶ 地圖</button><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
-<main><section id="side"><div id="chips"></div><div id="dayhead"></div><div id="wx"></div><ul id="list"></ul></section><div id="map"></div></main>
-<aside id="detail"></aside>
+<div id="vm"><button data-v="map">地圖</button><button data-v="split">分割</button><button data-v="text">文字</button></div><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
+<main><section id="side"><div id="chips"></div><div id="dayhead"></div><ul id="list"></ul></section><div id="map"></div></main>
+<div id="wx"></div><div id="hint">點地圖放置新地點</div><aside id="detail"></aside>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
@@ -854,14 +855,14 @@ function draw(fit){
  line=L.polyline(d.pts.map(p=>[p.la,p.lo]),{color:'#b3205a',weight:3,dashArray:'7 6'}).addTo(map);
 if(showC)cand.forEach((c,i)=>{const m=L.marker([c.la,c.lo],{icon:L.divIcon({className:'mkw',html:`<i class="u${i===ci?' sel':''}" style="--c:${COL[c.c]}">☆</i>`,iconSize:[20,20]})}).addTo(map);
   m.on('click',()=>pickC(i));m.bindTooltip(esc(c.n),lab?{permanent:true,direction:'right',offset:[8,0],className:'lbl u'}:{direction:'top',className:'lbl u'});cm.push(m)});
- if(fit&&d.pts.length)map.fitBounds(d.pts.map(p=>[p.la,p.lo]),{padding:isM()?[24,24]:[50,50],maxZoom:isM()?15:13});
+ if(fit&&d.pts.length&&map.getSize().x>0)map.fitBounds(d.pts.map(p=>[p.la,p.lo]),{padding:isM()?[24,24]:[50,50],maxZoom:isM()?15:13});
 }
 function render(){
  $('#chips').innerHTML=days.map((d,i)=>`<button data-i="${i}" class="${i===di?'on':''}">${esc(d.t.split(' ').slice(0,2).join(' '))}</button>`).join('')+'<button id="ad" title="新增一天">＋</button>';
  const d=days[di];let tot=0;d.pts.forEach((p,i)=>{if(i)tot+=km(d.pts[i-1],p)});
- $('#dayhead').innerHTML=`<input class="t" id="dt" value="${esc(d.t)}" aria-label="當日標題"><input class="s" id="ds" value="${esc(d.stay)}" aria-label="住宿"><div class="tip">${d.pts.length} 個地點 · 直線合計 ${tot.toFixed(1)} km · 拖曳 ⠿ 可調整順序</div>
- <div class="bar"><button id="add" class="${adding?'on':''}">${adding?'點地圖放置地點…':'＋ 新增地點'}</button><button id="dd">刪除此天</button></div>`;
- $('#list').innerHTML=d.pts.map((p,i)=>(i?`<li class="leg">${km(d.pts[i-1],p).toFixed(1)} km</li>`:'')+`<li class="pt ${i===sel?'sel':''}" data-i="${i}"><span class="hd" data-hd="${i}" title="拖曳調整順序">⠿</span><span class="n" style="background:${COL[cat(p)]}">${i+1}</span><span class="nm"><b>${esc(p.n)}</b><small>${cat(p)}${p.t?' · '+esc(p.t):''}</small></span><span class="ops"><button data-rm="${i}" title="刪除">✕</button></span></li>`).join('')||'<li class="tip">這天還沒有地點，按「新增地點」再點地圖。</li>';
+ $('#dayhead').innerHTML=`<div class="dh1"><input class="t" id="dt" value="${esc(d.t)}" aria-label="當日標題"><button id="tw" title="天氣與日出日落">☁</button><button id="add" class="${adding?'on':''}" title="新增地點">＋</button><button id="dd" title="刪除此天">🗑</button></div><div class="dh2"><input class="s" id="ds" value="${esc(d.stay)}" aria-label="住宿"><div class="tip">${d.pts.length} 個地點 · 直線 ${tot.toFixed(1)} km · 拖曳 ⠿ 調整順序</div></div>`;
+ $('#hint').classList.toggle('on',adding);
+ $('#list').innerHTML=d.pts.map((p,i)=>(i?`<li class="leg">${km(d.pts[i-1],p).toFixed(1)} km</li>`:'')+`<li class="pt ${i===sel?'sel':''}" data-i="${i}"><span class="hd" data-hd="${i}" title="拖曳調整順序">⠿</span><span class="n" style="background:${COL[cat(p)]}">${i+1}</span><span class="nm"><b>${esc(p.n)}</b><small>${cat(p)}${p.t?' · '+esc(p.t):''}</small><span class="nt">${esc((p.note||'').split('\n')[0])}</span></span><span class="ops"><button data-rm="${i}" title="刪除">✕</button></span></li>`).join('')||'<li class="tip">這天還沒有地點，按「新增地點」再點地圖。</li>';
  map.getContainer().style.cursor=adding?'crosshair':'';
 }
 function all(fit){render();draw(fit)}
@@ -874,16 +875,16 @@ $('#detail').addEventListener('click',e=>{if(e.target.id!=='cadd'||ci<0)return;c
 const WC={0:'晴',1:'大致晴朗',2:'多雲',3:'陰',45:'霧',48:'霧凇',51:'小毛毛雨',53:'毛毛雨',55:'大毛毛雨',56:'凍毛毛雨',57:'凍毛毛雨',61:'小雨',63:'中雨',65:'大雨',66:'凍雨',67:'凍雨',71:'小雪',73:'中雪',75:'大雪',77:'雪粒',80:'陣雨',81:'陣雨',82:'強陣雨',85:'陣雪',86:'強陣雪',95:'雷雨',96:'雷雨夾冰雹',99:'強雷雨冰雹'};
 const wcn=c=>WC[c]??'—',wc={};let wxTok=0,wxMe=false,meLL=null,meM=null,meC=null,watchId=null;
 async function wxLoad(){
- const tok=++wxTok,d=days[di],box=$('#wx');let lat,lon,name,date=null;
+ const box=$('#wx');if(!box.classList.contains('open'))return;const tok=++wxTok,d=days[di];let lat,lon,name,date=null;
  if(wxMe&&meLL){lat=meLL.lat;lon=meLL.lng;name='我的位置'}
  else{const p=ci>=0&&cand[ci]?{la:cand[ci].la,lo:cand[ci].lo,n:cand[ci].n}:(d.pts[sel]||d.pts[0]);if(!p){box.innerHTML='';return}lat=p.la;lon=p.lo;name=p.n;const m=ci>=0?null:d.t.match(/(\d+)\/(\d+)/);if(m)date='2026-'+m[1].padStart(2,'0')+'-'+m[2].padStart(2,'0')}
- const btn=wxMe?'<button id="ptbtn">回行程地點</button>':'<button id="mebtn">📍 我的位置</button>';
- box.innerHTML=`<div class="wh"><b>${esc(name)}</b>${btn}</div><div>載入天氣…</div>`;
+ const btn=(wxMe?'<button id="ptbtn">回行程地點</button>':'<button id="mebtn">📍 我的位置</button>')+'<button id="wxc">✕</button>';
+ box.innerHTML=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>載入天氣…</div>`;
  const k=lat.toFixed(2)+','+lon.toFixed(2);let r=wc[k];
- try{if(!r||Date.now()-r.t>6e5){const j=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=16`)).json();if(!j.current)throw 0;r=wc[k]={t:Date.now(),j}}}catch(x){if(tok===wxTok)box.innerHTML=`<div class="wh"><b>${esc(name)}</b>${btn}</div><div>目前無法取得天氣（需要連網）。</div>`;return}
+ try{if(!r||Date.now()-r.t>6e5){const j=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=16`)).json();if(!j.current)throw 0;r=wc[k]={t:Date.now(),j}}}catch(x){if(tok===wxTok)box.innerHTML=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>目前無法取得天氣（需要連網）。</div>`;return}
  if(tok!==wxTok)return;
  const j=r.j,c=j.current,q=j.daily;let i=date?q.time.indexOf(date):0;
- let h=`<div class="wh"><b>${esc(name)}</b>${btn}</div><div>現在 ${c.temperature_2m}°C（體感 ${c.apparent_temperature}°）${wcn(c.weather_code)} · 風 ${c.wind_speed_10m} km/h · 當地 ${c.time.slice(11)}</div>`;
+ let h=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>現在 ${c.temperature_2m}°C（體感 ${c.apparent_temperature}°）${wcn(c.weather_code)} · 風 ${c.wind_speed_10m} km/h · 當地 ${c.time.slice(11)}</div>`;
  if(i<0)h+=`<div>${date} 尚未開放預報</div>`;
  else{const sr=q.sunrise[i],ss=q.sunset[i],mi=Math.round((new Date(ss)-new Date(sr))/6e4);
   h+=`<div>${q.time[i].slice(5)} 預報：${wcn(q.weather_code[i])} ${Math.round(q.temperature_2m_min[i])}～${Math.round(q.temperature_2m_max[i])}°C · 降雨機率 ${q.precipitation_probability_max[i]??'—'}%</div><div>🌅 日出 ${sr.slice(11)} · 🌇 日落 ${ss.slice(11)} · 日照 ${Math.floor(mi/60)} 小時 ${mi%60} 分</div>`}
@@ -897,7 +898,7 @@ function locate(){
   else{meM.setLatLng(meLL);meC.setLatLng(meLL).setRadius(p.coords.accuracy)}
   if(first){first=false;map.setView(meLL,13);wxLoad()}},
   er=>{wxMe=false;$('#wx').innerHTML='<div>無法取得位置：'+esc(er.message)+'（請允許瀏覽器定位權限）</div>'},{enableHighAccuracy:true,timeout:20000,maximumAge:5000})}
-$('#wx').addEventListener('click',e=>{if(e.target.id==='mebtn')locate();if(e.target.id==='ptbtn'){wxMe=false;wxLoad()}});
+$('#wx').addEventListener('click',e=>{if(e.target.id==='mebtn')locate();if(e.target.id==='ptbtn'){wxMe=false;wxLoad()}if(e.target.id==='wxc')$('#wx').classList.remove('open')});
 
 const cache={};
 async function sum(w,e){
@@ -934,7 +935,8 @@ $('#chips').addEventListener('click',e=>{const b=e.target.closest('button');if(!
  sel=-1;ci=-1;adding=false;wxMe=false;$('#detail').classList.remove('open');save();all(true);wxLoad()});
 $('#dayhead').addEventListener('change',e=>{if(e.target.id==='dt')days[di].t=e.target.value;if(e.target.id==='ds')days[di].stay=e.target.value;save();render()});
 $('#dayhead').addEventListener('click',e=>{
- if(e.target.id==='add'){adding=!adding;render()}
+ if(e.target.id==='add'){adding=!adding;if(adding&&document.body.classList.contains('vm-text'))setVM('split');render()}
+ if(e.target.id==='tw'){const w=$('#wx');w.classList.toggle('open');if(w.classList.contains('open'))wxLoad()}
  if(e.target.id==='dd'&&confirm('刪除「'+days[di].t+'」整天行程？')){days.splice(di,1);if(!days.length)days.push({t:'新的一天',stay:'',pts:[]});di=Math.max(0,di-1);sel=-1;wxMe=false;$('#detail').classList.remove('open');save();all(true);wxLoad()}});
 $('#list').addEventListener('click',e=>{if(skip||e.target.closest('.hd'))return;const b=e.target.closest('button'),li=e.target.closest('li.pt');
  if(b&&b.dataset.rm!==undefined){days[di].pts.splice(+b.dataset.rm,1);sel=-1;$('#detail').classList.remove('open');save();all(false);return}
@@ -954,5 +956,10 @@ $('#bi').onclick=()=>$('#fi').click();
 $('#fi').onchange=async e=>{try{const j=JSON.parse(await e.target.files[0].text());if(!Array.isArray(j))throw 0;days=j;di=0;sel=-1;save();all(true);wxLoad()}catch(x){alert('檔案格式不正確')}};
 $('#br').onclick=()=>{if(confirm('重設為原始行程？你的修改會消失。')){days=DEF();cand=CAND0.slice();ci=-1;saveC();di=0;sel=-1;save();$('#detail').classList.remove('open');all(true);wxLoad()}};
 all(true);wxLoad();
-$('#bt').onclick=()=>{document.body.classList.toggle('big');setTimeout(()=>{map.invalidateSize();draw(true)},60)};addEventListener('resize',()=>map.invalidateSize());
+function setVM(v){const b=document.body;b.classList.remove('vm-map','vm-split','vm-text');b.classList.add('vm-'+v);
+ document.querySelectorAll('#vm button').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
+ try{localStorage.setItem('nordic_vm',v)}catch(e){}
+ setTimeout(()=>{map.invalidateSize();if(v!=='text')draw(true)},60)}
+$('#vm').addEventListener('click',e=>{const v=e.target.dataset.v;if(v)setVM(v)});
+let vm0='split';try{vm0=localStorage.getItem('nordic_vm')||'split'}catch(e){}setVM(vm0);
 </script></body></html>
