@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>北歐行程攻略</title>
 <style>/* required styles */
 
@@ -702,10 +702,20 @@ li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);c
 #detail .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 #detail p{margin:0;font-size:13px}#detail .x{position:absolute;top:6px;right:6px;background:#fffc}
 .tip{font-size:12px;color:var(--mute)}
-@media(max-width:760px){main{grid-template-columns:1fr;grid-template-rows:48vh 1fr}#side{order:2;border:0}#detail{top:auto;bottom:0;right:0;left:0;width:auto;max-height:60vh;border-radius:10px 10px 0 0}}
+@supports(height:100dvh){body{height:100dvh}}#bt{display:none}
+@media(max-width:760px){
+body{font-size:15px}header{padding:6px 10px;gap:6px}header h1{font-size:16px;white-space:nowrap}header button{font-size:13px;padding:3px 8px}#bt{display:inline-block}
+main{grid-template-columns:1fr;grid-template-rows:56dvh 1fr}body.big main{grid-template-rows:80dvh 1fr}
+#side{border:0;border-top:1px solid var(--line);overflow:auto;display:block}
+#chips{position:sticky;top:0;background:var(--panel);z-index:5}#chips button{min-height:34px}
+#list{overflow:visible}button{min-height:34px}
+#list li.pt{padding:9px 4px}.hd{padding:6px 8px;font-size:20px}.ops button{padding:2px 10px;font-size:16px}.n{width:28px;height:28px;font-size:13px}
+#detail{top:auto;bottom:0;left:0;right:0;width:auto;max-height:50dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}#detail img{height:140px}
+#detail input,#detail textarea,#detail select,#dayhead input{font-size:16px;padding:6px}
+.lg{font-size:11px;padding:4px 7px;line-height:1.5}.lbl{font-size:11px}#wx{font-size:13px}}
 </style></head><body>
 <header><h1>北歐行程攻略</h1>
-<button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
+<button id="bt">⛶ 地圖</button><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
 <main><section id="side"><div id="chips"></div><div id="dayhead"></div><div id="wx"></div><ul id="list"></ul></section><div id="map"></div></main>
 <aside id="detail"></aside>
 <script>/* @preserve
@@ -826,6 +836,7 @@ const topo=A('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxNativeZoom:1
 const esriT=A('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:15,attribution:'Tiles © Esri'});
 const sat=A('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:16,attribution:'Tiles © Esri'});
 const street=A('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxNativeZoom:18,subdomains:'abcd',attribution:'© OpenStreetMap, © CARTO'});
+const isM=()=>matchMedia('(max-width:760px)').matches;
 const map=L.map('map',{layers:[topo]}).setView([65,15],4);
 L.control.layers({'OpenTopoMap 地形':topo,'Esri 地形':esriT,'Esri 衛星':sat,'CARTO 街道':street}).addTo(map);
 const lg=L.control({position:'bottomleft'});
@@ -843,7 +854,7 @@ function draw(fit){
  line=L.polyline(d.pts.map(p=>[p.la,p.lo]),{color:'#b3205a',weight:3,dashArray:'7 6'}).addTo(map);
 if(showC)cand.forEach((c,i)=>{const m=L.marker([c.la,c.lo],{icon:L.divIcon({className:'mkw',html:`<i class="u${i===ci?' sel':''}" style="--c:${COL[c.c]}">☆</i>`,iconSize:[20,20]})}).addTo(map);
   m.on('click',()=>pickC(i));m.bindTooltip(esc(c.n),lab?{permanent:true,direction:'right',offset:[8,0],className:'lbl u'}:{direction:'top',className:'lbl u'});cm.push(m)});
- if(fit&&d.pts.length)map.fitBounds(d.pts.map(p=>[p.la,p.lo]),{padding:[50,50],maxZoom:13});
+ if(fit&&d.pts.length)map.fitBounds(d.pts.map(p=>[p.la,p.lo]),{padding:isM()?[24,24]:[50,50],maxZoom:isM()?15:13});
 }
 function render(){
  $('#chips').innerHTML=days.map((d,i)=>`<button data-i="${i}" class="${i===di?'on':''}">${esc(d.t.split(' ').slice(0,2).join(' '))}</button>`).join('')+'<button id="ad" title="新增一天">＋</button>';
@@ -854,7 +865,7 @@ function render(){
  map.getContainer().style.cursor=adding?'crosshair':'';
 }
 function all(fit){render();draw(fit)}
-function pickC(i){const c=cand[i];ci=i;sel=-1;wxMe=false;render();draw(false);wxLoad();map.panTo([c.la,c.lo]);
+function pickC(i){const c=cand[i];ci=i;sel=-1;wxMe=false;render();draw(false);wxLoad();isM()?map.setView([c.la,c.lo],Math.max(map.getZoom(),13)):map.panTo([c.la,c.lo]);
  const D=$('#detail');D.classList.add('open');
  D.innerHTML=`${c.img?`<img alt="" src="${c.img}">`:''}<button class="x" id="cl">✕</button><div class="in"><b style="font-size:15px">${esc(c.n)}</b><div class="tip">${c.c} · 未排入行程${c.r?' · '+esc(c.r):''}</div>${c.w?`<div class="tip" style="color:#b3205a">⚠ ${esc(c.w)}</div>`:''}<p style="white-space:pre-wrap">${esc(c.note||'（無說明）')}</p><div class="tip">${esc(c.a||'')}</div><div class="bar"><button id="cadd">加入「${esc(days[di].t)}」</button></div><div class="tip"><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${c.la},${c.lo}">Google 地圖</a> · <a target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(c.n)}">更多照片</a></div></div>`}
 $('#detail').addEventListener('click',e=>{if(e.target.id!=='cadd'||ci<0)return;const c=cand[ci],a=days[di].pts;
@@ -884,7 +895,7 @@ function locate(){
  watchId=navigator.geolocation.watchPosition(p=>{meLL=L.latLng(p.coords.latitude,p.coords.longitude);
   if(!meM){meC=L.circle(meLL,{radius:p.coords.accuracy,color:'#2b7de9',weight:1,fillOpacity:.12}).addTo(map);meM=L.circleMarker(meLL,{radius:8,color:'#fff',weight:3,fillColor:'#2b7de9',fillOpacity:1}).bindTooltip('我的位置').addTo(map)}
   else{meM.setLatLng(meLL);meC.setLatLng(meLL).setRadius(p.coords.accuracy)}
-  if(first){first=false;map.setView(meLL,12);wxLoad()}},
+  if(first){first=false;map.setView(meLL,13);wxLoad()}},
   er=>{wxMe=false;$('#wx').innerHTML='<div>無法取得位置：'+esc(er.message)+'（請允許瀏覽器定位權限）</div>'},{enableHighAccuracy:true,timeout:20000,maximumAge:5000})}
 $('#wx').addEventListener('click',e=>{if(e.target.id==='mebtn')locate();if(e.target.id==='ptbtn'){wxMe=false;wxLoad()}});
 
@@ -897,7 +908,7 @@ async function sum(w,e){
  if(e&&(!zh||!zh.thumbnail))en=await gs('en',e)||await se('en',e);
  return{img:(zh?.thumbnail||en?.thumbnail)?.source,txt:zh?.extract||(en?.extract?'（中文條目不足，以下為英文維基摘要）'+en.extract:''),url:(zh||en)?.content_urls?.desktop?.page}}
 async function pick(i,keep){sel=i;ci=-1;wxMe=false;wxLoad();const p=days[di].pts[i];render();draw(false);
- if(!keep)map.panTo([p.la,p.lo]);
+ if(!keep){isM()?map.setView([p.la,p.lo],Math.max(map.getZoom(),13)):map.panTo([p.la,p.lo])}
  const D=$('#detail');D.classList.add('open');
  const q=encodeURIComponent(p.e||p.n);
  D.innerHTML=`<img alt="" ${p.img?`src="${p.img}"`:'hidden'} id="ph"><button class="x" id="cl">✕</button><div class="in">
@@ -943,4 +954,5 @@ $('#bi').onclick=()=>$('#fi').click();
 $('#fi').onchange=async e=>{try{const j=JSON.parse(await e.target.files[0].text());if(!Array.isArray(j))throw 0;days=j;di=0;sel=-1;save();all(true);wxLoad()}catch(x){alert('檔案格式不正確')}};
 $('#br').onclick=()=>{if(confirm('重設為原始行程？你的修改會消失。')){days=DEF();cand=CAND0.slice();ci=-1;saveC();di=0;sel=-1;save();$('#detail').classList.remove('open');all(true);wxLoad()}};
 all(true);wxLoad();
+$('#bt').onclick=()=>{document.body.classList.toggle('big');setTimeout(()=>{map.invalidateSize();draw(true)},60)};addEventListener('resize',()=>map.invalidateSize());
 </script></body></html>
