@@ -911,17 +911,25 @@ async function wxLoad(){
  if(wxMe&&meLL)h+=`<div>座標 ${meLL.lat.toFixed(4)}, ${meLL.lng.toFixed(4)}</div>`;
  box.innerHTML=h}
 
-let kpC=null;
+let kpC=null,kpErr='';
+const KPU=['https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json','https://services.swpc.noaa.gov/json/planetary_k_index_1m.json','https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json'];
+function kpRows(j){
+ if(!Array.isArray(j)||!j.length)return[];
+ if(Array.isArray(j[0])){const h=j[0].map(x=>String(x).toLowerCase()),ti=h.indexOf('time_tag'),ki=h.findIndex(x=>/^kp/.test(x)),oi=h.indexOf('observed');
+  return j.slice(1).map(r=>({t:r[ti>=0?ti:0],k:parseFloat(r[ki>=0?ki:1]),o:oi>=0?r[oi]:'observed'}))}
+ return j.map(r=>({t:r.time_tag,k:parseFloat(r.estimated_kp??r.kp_index??r.kp??r.Kp),o:r.observed||'observed'}))}
 async function kpLoad(){
  if(kpC&&Date.now()-kpC.t<6e5)return kpC.v;
- let v=null;
- try{const j=await(await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json')).json();
-  const rows=j.slice(1).map(r=>({t:r[0],k:parseFloat(r[1]),o:r[2]})).filter(r=>!isNaN(r.k));
-  let n=-1;rows.forEach((r,i)=>{if(r.o!=='predicted')n=i});
-  if(n>=0){const nx=rows.slice(n+1,n+9);v={now:rows[n].k,t:rows[n].t,max:nx.length?Math.max(...nx.map(r=>r.k)):null}}}catch(x){}
- kpC={t:Date.now(),v};return v}
+ let v=null;kpErr='';
+ for(const u of KPU){
+  try{const r=await fetch(u);if(!r.ok){kpErr='HTTP '+r.status;continue}
+   const rows=kpRows(await r.json()).filter(x=>!isNaN(x.k));if(!rows.length){kpErr='格式無法解析';continue}
+   let n=-1;rows.forEach((x,i)=>{if(x.o!=='predicted')n=i});if(n<0)n=rows.length-1;
+   const nx=rows.slice(n+1,n+9);v={now:rows[n].k,t:rows[n].t,max:nx.length?Math.max(...nx.map(x=>x.k)):null};break}
+  catch(x){kpErr='連線失敗'}}
+ kpC={t:v?Date.now():Date.now()-54e4,v};return v}
 function kpLine(kp,lat){
- if(!kp)return '<div>☄ Kp 指數：暫無資料</div>';
+ if(!kp)return `<div>☄ Kp 指數：暫無資料（${kpErr||'未知原因'}）</div>`;
  const k=kp.now,lv=k>=5?'磁暴':k>=4?'活躍':k>=3?'偏高':'平靜';
  const need=lat>=55?(lat>=68?1:lat>=65?2:lat>=62?3:lat>=59?4:5):null;
  return `<div>☄ Kp <b>${k.toFixed(2).replace(/\.?0+$/,'')}</b>（${lv}）${kp.max!=null?' · 未來 24 小時預測最高 '+kp.max.toFixed(1).replace(/\.0$/,''):''}${need?` · 此緯度約 Kp≥${need} 較有機會見極光`:''}</div>`}
