@@ -902,14 +902,29 @@ async function wxLoad(){
  box.innerHTML=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>載入天氣…</div>`;
  const k=lat.toFixed(2)+','+lon.toFixed(2);let r=wc[k];
  try{if(!r||Date.now()-r.t>6e5){const j=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=16`)).json();if(!j.current)throw 0;r=wc[k]={t:Date.now(),j}}}catch(x){if(tok===wxTok)box.innerHTML=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>目前無法取得天氣（需要連網）。</div>`;return}
- if(tok!==wxTok)return;
+ const kp=await kpLoad();if(tok!==wxTok)return;
  const j=r.j,c=j.current,q=j.daily;let i=date?q.time.indexOf(date):0;
- let h=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>現在 ${c.temperature_2m}°C（體感 ${c.apparent_temperature}°）${wcn(c.weather_code)} · 風 ${c.wind_speed_10m} km/h · 當地 ${c.time.slice(11)}</div>`;
+ let h=`<div class="wh"><b>${esc(name)}</b><span>${btn}</span></div><div>現在 ${c.temperature_2m}°C（體感 ${c.apparent_temperature}°）${wcn(c.weather_code)} · 風 ${c.wind_speed_10m} km/h · 當地 ${c.time.slice(11)}</div>`+kpLine(kp,lat);
  if(i<0)h+=`<div>${date} 尚未開放預報</div>`;
  else{const sr=q.sunrise[i],ss=q.sunset[i],mi=Math.round((new Date(ss)-new Date(sr))/6e4);
   h+=`<div>${q.time[i].slice(5)} 預報：${wcn(q.weather_code[i])} ${Math.round(q.temperature_2m_min[i])}～${Math.round(q.temperature_2m_max[i])}°C · 降雨機率 ${q.precipitation_probability_max[i]??'—'}%</div><div>🌅 日出 ${sr.slice(11)} · 🌇 日落 ${ss.slice(11)} · 日照 ${Math.floor(mi/60)} 小時 ${mi%60} 分</div>`}
  if(wxMe&&meLL)h+=`<div>座標 ${meLL.lat.toFixed(4)}, ${meLL.lng.toFixed(4)}</div>`;
  box.innerHTML=h}
+
+let kpC=null;
+async function kpLoad(){
+ if(kpC&&Date.now()-kpC.t<6e5)return kpC.v;
+ let v=null;
+ try{const j=await(await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json')).json();
+  const rows=j.slice(1).map(r=>({t:r[0],k:parseFloat(r[1]),o:r[2]})).filter(r=>!isNaN(r.k));
+  let n=-1;rows.forEach((r,i)=>{if(r.o!=='predicted')n=i});
+  if(n>=0){const nx=rows.slice(n+1,n+9);v={now:rows[n].k,t:rows[n].t,max:nx.length?Math.max(...nx.map(r=>r.k)):null}}}catch(x){}
+ kpC={t:Date.now(),v};return v}
+function kpLine(kp,lat){
+ if(!kp)return '<div>☄ Kp 指數：暫無資料</div>';
+ const k=kp.now,lv=k>=5?'磁暴':k>=4?'活躍':k>=3?'偏高':'平靜';
+ const need=lat>=55?(lat>=68?1:lat>=65?2:lat>=62?3:lat>=59?4:5):null;
+ return `<div>☄ Kp <b>${k.toFixed(2).replace(/\.?0+$/,'')}</b>（${lv}）${kp.max!=null?' · 未來 24 小時預測最高 '+kp.max.toFixed(1).replace(/\.0$/,''):''}${need?` · 此緯度約 Kp≥${need} 較有機會見極光`:''}</div>`}
 function locate(){
  if(!navigator.geolocation){$('#wx').innerHTML='<div>此瀏覽器不支援定位。</div>';return}
  wxMe=true;let first=true;if(watchId!==null)navigator.geolocation.clearWatch(watchId);
