@@ -682,7 +682,7 @@ main{display:grid;grid-template-columns:340px 1fr;min-height:0}
 #dayhead input{border:0;border-bottom:1px dashed var(--line);background:transparent;padding:2px 0;width:100%}
 #dayhead .t{font:700 16px "Noto Serif TC",serif}#dayhead .s{color:var(--mute);font-size:12px}
 .bar{display:flex;gap:6px;flex-wrap:wrap}.bar .on{background:var(--route);color:#fff;border-color:var(--route)}
-#wx{display:none;position:fixed;z-index:1100;top:56px;left:352px;width:300px;padding:8px 12px;font-size:13px;line-height:1.55;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003}#wx.open{display:block}#wx .wh span{display:flex;gap:4px}#hint{display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--route);color:#fff;padding:6px 14px;border-radius:99px;z-index:1200;font-size:14px;box-shadow:0 2px 8px #0005}#hint.on{display:block}.dh1{display:flex;gap:6px;align-items:center}.dh1 input{flex:1;min-width:0}.dh1 button{min-width:38px;padding:2px 6px;font-size:16px}#wx .wh{display:flex;justify-content:space-between;align-items:center;gap:6px}#wx button{font-size:12px;padding:1px 8px}#list{flex:1;overflow:auto;margin:0;padding:6px 8px;list-style:none}
+#wx{display:none;position:fixed;z-index:1100;top:56px;left:352px;width:300px;padding:8px 12px;font-size:13px;line-height:1.55;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003}#wx.open{display:block}#addp{display:none;position:fixed;z-index:1150;top:56px;left:352px;width:340px;max-height:72dvh;overflow:auto;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003;font-size:13px}#addp.open{display:block}#addp .ah{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}#addp .as{display:flex;gap:6px;margin-bottom:6px}#addp .as input{flex:1;min-width:0;border:1px solid var(--line);border-radius:5px;padding:6px 8px;background:#fff;color:var(--ink);font-size:15px}#addp .rw{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}#addp .rn{flex:1;min-width:0}#addp .rn b{display:block}#addp .rn small{display:block;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#addp .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}#addp .bar{margin-top:8px}#wx .wh span{display:flex;gap:4px}#hint{display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--route);color:#fff;padding:6px 14px;border-radius:99px;z-index:1200;font-size:14px;box-shadow:0 2px 8px #0005}#hint.on{display:block}.dh1{display:flex;gap:6px;align-items:center}.dh1 input{flex:1;min-width:0}.dh1 button{min-width:38px;padding:2px 6px;font-size:16px}#wx .wh{display:flex;justify-content:space-between;align-items:center;gap:6px}#wx button{font-size:12px;padding:1px 8px}#list{flex:1;overflow:auto;margin:0;padding:6px 8px;list-style:none}
 #list li.pt.drag{opacity:.45}#list li.ov{box-shadow:0 -3px 0 var(--route)}.hd{cursor:grab;touch-action:none;user-select:none;color:var(--mute);padding:0 2px;font-size:16px}#list li.pt{display:flex;align-items:center;gap:8px;padding:6px 6px;border-radius:6px;cursor:pointer}
 #list li.pt:hover{background:#e6eeea}#list li.pt.sel{background:#d8ebe9;outline:1px solid var(--acc)}
 .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;display:grid;place-items:center;font-weight:700}
@@ -707,7 +707,7 @@ li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);c
 body{font-size:15px}header{padding:6px 10px;gap:6px}header h1{font-size:16px;white-space:nowrap}header button{font-size:13px;padding:3px 8px}#vm{display:flex}
 main{grid-template-columns:1fr;grid-template-rows:56dvh 1fr}body.vm-map main{grid-template-rows:auto 1fr}body.vm-map #side{order:-1;overflow:visible}body.vm-map .dh2,body.vm-map #list{display:none}
 body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-text .nt{display:block}body.vm-text .nm b{white-space:normal;font-size:16px}body.vm-text .nm small{font-size:13px}body.vm-text #detail{max-height:80dvh}
-#map{order:1}#side{order:2;border:0;border-top:1px solid var(--line);overflow:auto;display:block}#wx{top:50px;left:8px;right:8px;width:auto}
+#map{order:1}#side{order:2;border:0;border-top:1px solid var(--line);overflow:auto;display:block}#wx,#addp{top:50px;left:8px;right:8px;width:auto}#addp{max-height:60dvh}
 #chips{position:sticky;top:0;background:var(--panel);z-index:5}#chips button{min-height:34px}
 #list{overflow:visible}button{min-height:34px}
 #list li.pt{padding:9px 4px}.hd{padding:6px 8px;font-size:20px}.ops button{padding:2px 10px;font-size:16px}.n{width:28px;height:28px;font-size:13px}
@@ -718,7 +718,7 @@ body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-
 <header><h1>北歐行程攻略</h1>
 <div id="vm"><button data-v="map">地圖</button><button data-v="split">分割</button><button data-v="text">文字</button></div><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
 <main><section id="side"><div id="chips"></div><div id="dayhead"></div><ul id="list"></ul></section><div id="map"></div></main>
-<div id="wx"></div><div id="hint">點地圖放置新地點</div><aside id="detail"></aside>
+<div id="wx"></div><div id="addp"></div><div id="hint">點地圖放置新地點</div><aside id="detail"></aside>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
@@ -933,6 +933,38 @@ function kpLine(kp,lat){
  const k=kp.now,lv=k>=5?'磁暴':k>=4?'活躍':k>=3?'偏高':'平靜';
  const need=lat>=55?(lat>=68?1:lat>=65?2:lat>=62?3:lat>=59?4:5):null;
  return `<div>☄ Kp <b>${k.toFixed(2).replace(/\.?0+$/,'')}</b>（${lv}）${kp.max!=null?' · 未來 24 小時預測最高 '+kp.max.toFixed(1).replace(/\.0$/,''):''}${need?` · 此緯度約 Kp≥${need} 較有機會見極光`:''}</div>`}
+
+let res=[];
+const catOf=(k,v)=>{k=k||'';v=v||'';
+ if(k==='amenity'&&/restaurant|cafe|bar|fast_food|pub|food_court|ice_cream|biergarten/.test(v)||k==='shop'&&/bakery|confectionery|chocolate|coffee|deli/.test(v))return F;
+ if(k==='aeroway'||k==='railway'||k==='public_transport'||k==='amenity'&&/ferry_terminal|bus_station/.test(v)||k==='highway'&&v==='bus_stop')return T;
+ if(k==='tourism'&&/hotel|apartment|guest_house|hostel|motel|chalet/.test(v))return H;
+ return S};
+function openAdd(){
+ const p=$('#addp');
+ p.innerHTML=`<div class="ah"><b>新增地點到「${esc(days[di].t)}」</b><button id="apx">✕</button></div><div class="as"><input id="aq" type="search" placeholder="輸入地名、景點、餐廳（中英文）" autocomplete="off"><button id="ago">搜尋</button></div><div id="ar" class="tip">輸入關鍵字後按 Enter 或「搜尋」。</div><div class="bar"><button id="amap">📍 改為點地圖放置</button></div>`;
+ p.classList.add('open');setTimeout(()=>$('#aq').focus(),50)}
+async function doSearch(){
+ const q=$('#aq').value.trim(),box=$('#ar');if(!q)return;box.textContent='搜尋中…';res=[];
+ const ql=q.toLowerCase();
+ cand.forEach((c,i)=>{if(c.n.toLowerCase().includes(ql)||(c.r||'').toLowerCase().includes(ql))res.push({n:c.n,sub:'備選地點 · '+(c.r||''),la:c.la,lo:c.lo,c:c.c,ci:i})});
+ const ctr=map.getCenter();let found=[],err='';
+ try{const j=await(await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=8&lat=${ctr.lat.toFixed(3)}&lon=${ctr.lng.toFixed(3)}`)).json();
+  found=(j.features||[]).map(f=>{const p=f.properties||{};return{n:p.name||p.street||'',sub:[p.street,p.city||p.county,p.state,p.country].filter(Boolean).join(', '),la:f.geometry.coordinates[1],lo:f.geometry.coordinates[0],c:catOf(p.osm_key,p.osm_value)}}).filter(x=>x.n)}catch(x){err='x'}
+ if(!found.length){try{const j=await(await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&accept-language=zh-TW&q=${encodeURIComponent(q)}`)).json();
+  found=j.map(x=>({n:x.name||x.display_name.split(',')[0],sub:x.display_name,la:+x.lat,lo:+x.lon,c:catOf(x.category,x.type)}));err=''}catch(x){}}
+ res=res.concat(found);
+ box.innerHTML=res.length?res.map((r,i)=>`<div class="rw"><div class="rn"><b><i class="dot" style="background:${COL[r.c]}"></i>${esc(r.n)}</b><small>${esc(r.sub)}</small></div><button data-ai="${i}">加入</button></div>`).join(''):(err?'搜尋失敗（需要連網）。':'找不到結果，換個關鍵字或改用「點地圖放置」。')}
+function addRes(i){const r=res[i];if(!r)return;const a=days[di].pts;
+ const p=P(r.c,r.n,+(+r.la).toFixed(5),+(+r.lo).toFixed(5),'','',r.ci===undefined?r.n:'',r.ci===undefined?r.sub:(cand[r.ci].note||''));
+ if(r.ci!==undefined){p.img=cand[r.ci].img;cand.splice(r.ci,1);saveC()}
+ a.push(p);save();$('#addp').classList.remove('open');all(false);pick(a.length-1)}
+$('#addp').addEventListener('click',e=>{const id=e.target.id;
+ if(id==='apx')$('#addp').classList.remove('open');
+ if(id==='ago')doSearch();
+ if(id==='amap'){$('#addp').classList.remove('open');adding=true;if(document.body.classList.contains('vm-text'))setVM('split');render()}
+ if(e.target.dataset.ai!==undefined)addRes(+e.target.dataset.ai)});
+$('#addp').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='aq')doSearch()});
 function locate(){
  if(!navigator.geolocation){$('#wx').innerHTML='<div>此瀏覽器不支援定位。</div>';return}
  wxMe=true;let first=true;if(watchId!==null)navigator.geolocation.clearWatch(watchId);
@@ -978,7 +1010,7 @@ $('#chips').addEventListener('click',e=>{const b=e.target.closest('button');if(!
  sel=-1;ci=-1;adding=false;wxMe=false;$('#detail').classList.remove('open');save();all(true);wxLoad()});
 $('#dayhead').addEventListener('change',e=>{if(e.target.id==='dt')days[di].t=e.target.value;if(e.target.id==='ds')days[di].stay=e.target.value;save();render()});
 $('#dayhead').addEventListener('click',e=>{
- if(e.target.id==='add'){adding=!adding;if(adding&&document.body.classList.contains('vm-text'))setVM('split');render()}
+ if(e.target.id==='add')openAdd()
  if(e.target.id==='tw'){const w=$('#wx');w.classList.toggle('open');if(w.classList.contains('open'))wxLoad()}
  if(e.target.id==='dd'&&confirm('刪除「'+days[di].t+'」整天行程？')){days.splice(di,1);if(!days.length)days.push({t:'新的一天',stay:'',pts:[]});di=Math.max(0,di-1);sel=-1;wxMe=false;$('#detail').classList.remove('open');save();all(true);wxLoad()}});
 $('#list').addEventListener('click',e=>{if(skip||e.target.closest('.hd'))return;const b=e.target.closest('button'),li=e.target.closest('li.pt');
