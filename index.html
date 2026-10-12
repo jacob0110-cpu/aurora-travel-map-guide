@@ -697,7 +697,7 @@ li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);c
 #detail{position:fixed;top:60px;right:14px;width:330px;max-height:calc(100vh - 80px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003;z-index:1000;display:none}
 #detail.open{display:block}#detail img{width:100%;height:190px;object-fit:cover;display:block;border-radius:10px 10px 0 0;background:#dfe7e3}
 #detail .in{padding:10px 12px;display:grid;gap:6px}
-#dh{display:none}
+#dh{display:none}#mid{display:none}
 #detail label{display:grid;gap:1px;font-size:12px;color:var(--mute)}
 #detail input,#detail textarea{border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:#fff;color:var(--ink)}
 #detail .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -706,9 +706,9 @@ li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);c
 @supports(height:100dvh){body{height:100dvh}}#vm{display:none}.nt{display:none;white-space:normal;color:var(--mute);font-size:13px}#vm button{border-radius:0;border-color:#47616a;background:transparent;color:#e8f1ee;margin:0 -1px 0 0}#vm button.on{background:#e8f1ee;color:var(--ink)}
 @media(max-width:760px){
 body{font-size:15px}header{padding:6px 10px;gap:6px}header h1{font-size:16px;white-space:nowrap}header button{font-size:13px;padding:3px 8px}#vm{display:flex}
-main{grid-template-columns:1fr;grid-template-rows:56dvh 1fr}body.vm-map main{grid-template-rows:auto 1fr}body.vm-map #side{order:-1;overflow:visible}body.vm-map .dh2,body.vm-map #list{display:none}
+main{grid-template-columns:1fr;grid-template-rows:min(var(--mh,46dvh),70dvh) auto 1fr}body.vm-map main{grid-template-rows:auto 1fr}body.vm-map #side{order:-1;overflow:visible}body.vm-map .dh2,body.vm-map #list{display:none}
 body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-text .nt{display:block}body.vm-text .nm b{white-space:normal;font-size:16px}body.vm-text .nm small{font-size:13px}body.vm-text #detail{max-height:80dvh}
-#map{order:1}#side{order:2;border:0;border-top:1px solid var(--line);overflow:auto;display:block}#wx,#addp{top:50px;left:8px;right:8px;width:auto}#addp{max-height:60dvh}
+#map{order:1}#mid{order:2}#side{order:3;border:0;border-top:1px solid var(--line);overflow:auto;display:block}#wx,#addp{top:50px;left:8px;right:8px;width:auto}#addp{max-height:60dvh}
 #chips{position:sticky;top:0;background:var(--panel);z-index:5}#chips button{min-height:34px}
 #list{overflow:visible}button{min-height:34px}
 #list li.pt{padding:9px 4px}.hd{padding:6px 8px;font-size:20px}.ops button{padding:2px 10px;font-size:16px}.n{width:28px;height:28px;font-size:13px}
@@ -723,7 +723,16 @@ body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-
 #detail.mini{max-height:none;overflow:visible}
 #detail.mini>*:not(#dh):not(.x){display:none}
 #detail.mini #dh{border-bottom:0}
-#list{padding-bottom:64px}}
+#list{padding-bottom:64px}
+body.vm-split #mid{display:block;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#sp{height:24px;display:grid;place-items:center;touch-action:none;cursor:row-resize;user-select:none;-webkit-user-select:none}
+#sp i{width:48px;height:5px;border-radius:3px;background:#9fb3ac}
+#rt{display:flex;align-items:center;gap:6px;overflow-x:auto;padding:2px 8px 8px;min-height:46px;white-space:nowrap;-webkit-overflow-scrolling:touch}
+#rt .rs{display:flex;align-items:center;gap:5px;flex:none;max-width:160px;border-radius:99px;padding:2px 10px 2px 3px}
+#rt .rs b{overflow:hidden;text-overflow:ellipsis;font-weight:600;font-size:13px}
+#rt .rs.sel{background:#d8ebe9;border-color:var(--acc)}
+#rt .rs .n{width:22px;height:22px;font-size:12px}
+#rt .rl{flex:none;color:var(--route);font-size:11px}}
 #pv{display:none;position:fixed;inset:0;z-index:5000;background:#56655f;overflow:auto}#pv.open{display:block}
 #pvbar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:8px 12px;background:var(--ink);color:#e8f1ee;font-size:13px}#pvbar select{font:inherit;padding:3px 4px;border-radius:4px}#pvbar button{background:#e8f1ee;color:var(--ink)}#pvbar button:disabled{opacity:.5}#pvst{color:#9fd3c9}
 #pvp{padding:12px;display:flex;flex-direction:column;align-items:center;gap:14px}.sc{flex:none}
@@ -734,7 +743,7 @@ body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-
 </style></head><body>
 <header><h1>2026 北歐行程攻略</h1>
 <div id="vm"><button data-v="map">地圖</button><button data-v="split">分割</button><button data-v="text">文字</button></div><button id="bp">🖨 列印</button><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
-<main><section id="side"><div id="chips"></div><div id="dayhead"></div><ul id="list"></ul></section><div id="map"></div></main>
+<main><section id="side"><div id="chips"></div><div id="dayhead"></div><ul id="list"></ul></section><div id="map"></div><div id="mid"><div id="sp" title="上下拖曳調整地圖大小"><i></i></div><div id="rt"></div></div></main>
 <div id="pv"><div id="pvbar"><b>列印預覽</b><label>範圍 <select id="pvs"><option value="a">全部天數</option><option value="1">目前這天</option></select></label><label>方向 <select id="pvo"><option value="p">直式</option><option value="l">橫式</option></select></label><label>底圖 <select id="pvb"><option value="0">地形圖</option><option value="1">Esri 地形</option><option value="2">衛星</option><option value="3">Esri 街道</option></select></label><span id="pvst"></span><button id="pvgo">🖨 列印 / 存成 PDF</button><button id="pvx">關閉</button></div><div id="pvp"></div></div><style id="pgs"></style>
 <div id="wx"></div><div id="addp"></div><div id="hint">點地圖放置新地點</div><aside id="detail"></aside>
 <script>/* @preserve
@@ -902,6 +911,7 @@ function render(){
  $('#hint').classList.toggle('on',adding);
  $('#list').innerHTML=d.pts.map((p,i)=>(i?`<li class="leg">${km(d.pts[i-1],p).toFixed(1)} km</li>`:'')+`<li class="pt ${i===sel?'sel':''}" data-i="${i}"><span class="hd" data-hd="${i}" title="拖曳調整順序">⠿</span><span class="n" style="background:${COL[cat(p)]}">${i+1}</span><span class="nm"><b>${esc(p.n)}</b><small>${cat(p)}${p.t?' · '+esc(p.t):''}</small><span class="nt">${esc((p.note||'').split('\n')[0])}</span></span><span class="ops"><button data-rm="${i}" title="刪除">✕</button></span></li>`).join('')||'<li class="tip">這天還沒有地點，按「新增地點」再點地圖。</li>';
  map.getContainer().style.cursor=adding?'crosshair':'';
+rtRender();
 }
 function all(fit){render();draw(fit)}
 function pickC(i){const c=cand[i];ci=i;sel=-1;wxMe=false;render();draw(false);wxLoad();focusPt(c.la,c.lo);
@@ -1077,6 +1087,40 @@ new MutationObserver(dSync).observe($('#detail'),{childList:true});
 $('#detail').addEventListener('click',e=>{if(!isM()||!e.target.closest('#dh'))return;dMini=!dMini;dSync();dRefocus()});
 $('#detail').addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.f==='n'){const b=$('#dh b');if(b)b.textContent=e.target.value}});
 addEventListener('resize',dSync);
+
+/* ---- day swipe, route strip, resizable map ---- */
+function goDay(n){
+ if(n<0||n>=days.length||n===di)return;const dir=n>di?1:-1;
+ di=n;sel=-1;ci=-1;adding=false;wxMe=false;$('#detail').classList.remove('open');save();all(true);wxLoad();
+ $('#side').scrollTop=0;
+ [$('#dayhead'),$('#list')].forEach(el=>el.animate([{transform:'translateX('+dir*40+'px)',opacity:0},{transform:'none',opacity:1}],{duration:200,easing:'ease-out'}));
+ const b=$('#chips button.on');if(b)b.scrollIntoView({inline:'center',block:'nearest'})}
+(function(){
+ let x0=0,y0=0,t0=0,on=false;
+ [$('#dayhead'),$('#list')].forEach(el=>{
+  el.addEventListener('touchstart',e=>{on=false;if(!isM()||e.touches.length!==1||e.target.closest('.hd,input,textarea,select'))return;
+   const t=e.touches[0];if(t.clientX<22||t.clientX>innerWidth-22)return;x0=t.clientX;y0=t.clientY;t0=Date.now();on=true},{passive:true});
+  el.addEventListener('touchend',e=>{if(!on)return;on=false;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;
+   if(Date.now()-t0>700||Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy)*1.6)return;
+   goDay(di+(dx<0?1:-1))},{passive:true})})})();
+function rtRender(){
+ const r=$('#rt');if(!r)return;const sc=r.scrollLeft,d=days[di];
+ r.innerHTML=d.pts.map((p,i)=>(i?'<span class="rl">— '+km(d.pts[i-1],p).toFixed(1)+' km →</span>':'')+'<button class="rs'+(i===sel?' sel':'')+'" data-i="'+i+'"><span class="n" style="background:'+COL[cat(p)]+'">'+(i+1)+'</span><b>'+esc(p.n)+'</b></button>').join('')||'<span class="tip">這天還沒有地點</span>';
+ r.scrollLeft=sc;
+ const s=r.querySelector('.sel');if(s){const a=s.offsetLeft,w=s.offsetWidth;if(a<r.scrollLeft||a+w>r.scrollLeft+r.clientWidth)r.scrollLeft=Math.max(0,a-12)}}
+$('#rt').addEventListener('click',e=>{const b=e.target.closest('.rs');if(b)pick(+b.dataset.i)});
+(function(){
+ const g=$('#sp'),root=document.documentElement;let drag=false,raf=0;
+ try{const v=localStorage.getItem('nordic_mh');if(v)root.style.setProperty('--mh',v+'px')}catch(e){}
+ g.addEventListener('pointerdown',e=>{drag=true;g.setPointerCapture(e.pointerId);e.preventDefault()});
+ g.addEventListener('pointermove',e=>{if(!drag)return;
+  const top=$('#map').getBoundingClientRect().top;
+  const h=Math.round(Math.max(120,Math.min(innerHeight-top-170,e.clientY-top-12)));
+  root.style.setProperty('--mh',h+'px');
+  if(!raf)raf=requestAnimationFrame(()=>{raf=0;map.invalidateSize()})});
+ const end=()=>{if(!drag)return;drag=false;const h=parseInt(root.style.getPropertyValue('--mh'));
+  if(h){try{localStorage.setItem('nordic_mh',h)}catch(e){}}map.invalidateSize();dRefocus()};
+ g.addEventListener('pointerup',end);g.addEventListener('pointercancel',end)})();
 let vm0='split';try{vm0=localStorage.getItem('nordic_vm')||'split'}catch(e){}setVM(vm0);
 
 let pvMaps=[],pvPend=0,pvTok=0;const WD=['日','一','二','三','四','五','六'];
