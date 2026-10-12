@@ -725,7 +725,7 @@ body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-
 <header><h1>2026 北歐行程攻略</h1>
 <div id="vm"><button data-v="map">地圖</button><button data-v="split">分割</button><button data-v="text">文字</button></div><button id="bp">🖨 列印</button><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
 <main><section id="side"><div id="chips"></div><div id="dayhead"></div><ul id="list"></ul></section><div id="map"></div></main>
-<div id="pv"><div id="pvbar"><b>列印預覽</b><label>範圍 <select id="pvs"><option value="a">全部天數</option><option value="1">目前這天</option></select></label><label>方向 <select id="pvo"><option value="p">直式</option><option value="l">橫式</option></select></label><label>底圖 <select id="pvb"><option value="0">地形圖</option><option value="1">Esri 地形</option><option value="2">衛星</option></select></label><span id="pvst"></span><button id="pvgo">🖨 列印 / 存成 PDF</button><button id="pvx">關閉</button></div><div id="pvp"></div></div><style id="pgs"></style>
+<div id="pv"><div id="pvbar"><b>列印預覽</b><label>範圍 <select id="pvs"><option value="a">全部天數</option><option value="1">目前這天</option></select></label><label>方向 <select id="pvo"><option value="p">直式</option><option value="l">橫式</option></select></label><label>底圖 <select id="pvb"><option value="0">地形圖</option><option value="1">Esri 地形</option><option value="2">衛星</option><option value="3">Esri 街道</option></select></label><span id="pvst"></span><button id="pvgo">🖨 列印 / 存成 PDF</button><button id="pvx">關閉</button></div><div id="pvp"></div></div><style id="pgs"></style>
 <div id="wx"></div><div id="addp"></div><div id="hint">點地圖放置新地點</div><aside id="detail"></aside>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
@@ -864,10 +864,10 @@ const A=(u,o)=>L.tileLayer(u,Object.assign({maxZoom:18},o));
 const topo=A('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxNativeZoom:17,subdomains:'abc',attribution:'© OpenTopoMap, © OpenStreetMap'});
 const esriT=A('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:15,attribution:'Tiles © Esri'});
 const sat=A('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:16,attribution:'Tiles © Esri'});
-const street=A('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxNativeZoom:18,subdomains:'abcd',attribution:'© OpenStreetMap, © CARTO'});
+const street=A('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:17,attribution:'Tiles © Esri'});
 const isM=()=>matchMedia('(max-width:760px)').matches;
 const map=L.map('map',{layers:[topo]}).setView([65,15],4);
-L.control.layers({'OpenTopoMap 地形':topo,'Esri 地形':esriT,'Esri 衛星':sat,'CARTO 街道':street}).addTo(map);
+L.control.layers({'OpenTopoMap 地形':topo,'Esri 地形':esriT,'Esri 衛星':sat,'Esri 街道':street}).addTo(map);
 const lg=L.control({position:'bottomleft'});
 lg.onAdd=()=>{const d=L.DomUtil.create('div','lg');d.innerHTML=Object.keys(COL).map(k=>`<div><i style="background:${COL[k]}"></i>${k}</div>`).join('')+'<div><i style="background:#fff;border:2px dashed #666"></i>未排入行程（備選）</div><label><input type="checkbox" id="lb" checked> 顯示地名</label><label style="border:0;margin:0;padding:0"><input type="checkbox" id="lc" checked> 顯示備選地點</label>';L.DomEvent.disableClickPropagation(d);return d};lg.addTo(map);
 $('#lb').onchange=e=>{lab=e.target.checked;draw(false)};$('#lc').onchange=e=>{showC=e.target.checked;draw(false)};
@@ -1067,7 +1067,7 @@ async function pvWx(d,i,tok){
   if(kp)s+='<br>'+kpLine(kp,p.la).replace(/^<div>|<\/div>$/g,'');
   box.innerHTML=s+`<br><span style="color:#5d726c">資料查詢時間 ${stamp}（Open-Meteo${kp?' / NOAA SWPC':''}）</span>`
  }catch(e){const box=el();if(box)box.textContent='天氣資料無法取得（需要連網）。'}}
-function openPV(){const cur=BL().findIndex(l=>map.hasLayer(l));$('#pvb').value=cur<0||cur>2?0:cur;$('#pv').classList.add('open');buildPV()}
+function openPV(){const cur=BL().findIndex(l=>map.hasLayer(l));$('#pvb').value=cur<0?0:cur;$('#pv').classList.add('open');buildPV()}
 function closePV(){pvMaps.forEach(m=>m.remove());pvMaps=[];$('#pvp').innerHTML='';$('#pv').classList.remove('open')}
 function pvStat(){$('#pvgo').disabled=pvPend>0;$('#pvst').textContent=pvPend>0?'地圖載入中…('+pvPend+')':'地圖已就緒，可列印'}
 function buildPV(){
