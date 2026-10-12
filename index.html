@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>北歐行程攻略</title>
+<title>2026 北歐行程攻略</title>
 <style>/* required styles */
 
 .leaflet-pane,
@@ -665,11 +665,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 </style>
 <style>
-:root{--ink:#12262f;--paper:#eef2ef;--panel:#fbfcfa;--line:#cdd8d2;--mute:#5d726c;--acc:#0e7c86;--route:#b3205a}
+:root{--f:"LiHei Pro","儷黑 Pro","Heiti TC","PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;--ink:#12262f;--paper:#eef2ef;--panel:#fbfcfa;--line:#cdd8d2;--mute:#5d726c;--acc:#0e7c86;--route:#b3205a}
 *{box-sizing:border-box}html,body{height:100%;margin:0}
-body{font:14px/1.5 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--ink);background:var(--paper);display:grid;grid-template-rows:auto 1fr}
+body{font:14px/1.5 var(--f);color:var(--ink);background:var(--paper);display:grid;grid-template-rows:auto 1fr}
 header{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--ink);color:#e8f1ee}
-header h1{font:700 17px/1 "Noto Serif TC","Songti TC",serif;margin:0;flex:1;letter-spacing:.04em}
+header h1{font:700 17px/1 var(--f);margin:0;flex:1;letter-spacing:.04em}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:1px solid var(--line);background:var(--panel);border-radius:5px;padding:3px 9px}
 button:hover{border-color:var(--acc)}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
@@ -680,7 +680,7 @@ main{display:grid;grid-template-columns:340px 1fr;min-height:0}
 #chips button{white-space:nowrap;border-radius:99px}#chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 #dayhead{padding:8px 12px;border-bottom:1px solid var(--line);display:grid;gap:4px}
 #dayhead input{border:0;border-bottom:1px dashed var(--line);background:transparent;padding:2px 0;width:100%}
-#dayhead .t{font:700 16px "Noto Serif TC",serif}#dayhead .s{color:var(--mute);font-size:12px}
+#dayhead .t{font:700 16px var(--f)}#dayhead .s{color:var(--mute);font-size:12px}
 .bar{display:flex;gap:6px;flex-wrap:wrap}.bar .on{background:var(--route);color:#fff;border-color:var(--route)}
 #wx{display:none;position:fixed;z-index:1100;top:56px;left:352px;width:300px;padding:8px 12px;font-size:13px;line-height:1.55;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003}#wx.open{display:block}#addp{display:none;position:fixed;z-index:1150;top:56px;left:352px;width:340px;max-height:72dvh;overflow:auto;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003;font-size:13px}#addp.open{display:block}#addp .ah{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}#addp .as{display:flex;gap:6px;margin-bottom:6px}#addp .as input{flex:1;min-width:0;border:1px solid var(--line);border-radius:5px;padding:6px 8px;background:#fff;color:var(--ink);font-size:15px}#addp .rw{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}#addp .rn{flex:1;min-width:0}#addp .rn b{display:block}#addp .rn small{display:block;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#addp .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}#addp .bar{margin-top:8px}#wx .wh span{display:flex;gap:4px}#hint{display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--route);color:#fff;padding:6px 14px;border-radius:99px;z-index:1200;font-size:14px;box-shadow:0 2px 8px #0005}#hint.on{display:block}.dh1{display:flex;gap:6px;align-items:center}.dh1 input{flex:1;min-width:0}.dh1 button{min-width:38px;padding:2px 6px;font-size:16px}#wx .wh{display:flex;justify-content:space-between;align-items:center;gap:6px}#wx button{font-size:12px;padding:1px 8px}#list{flex:1;overflow:auto;margin:0;padding:6px 8px;list-style:none}
 #list li.pt.drag{opacity:.45}#list li.ov{box-shadow:0 -3px 0 var(--route)}.hd{cursor:grab;touch-action:none;user-select:none;color:var(--mute);padding:0 2px;font-size:16px}#list li.pt{display:flex;align-items:center;gap:8px;padding:6px 6px;border-radius:6px;cursor:pointer}
@@ -692,7 +692,7 @@ main{display:grid;grid-template-columns:340px 1fr;min-height:0}
 li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);color:var(--mute);font-size:11px}
 #map{height:100%;min-height:0;z-index:0}
 .mkw{background:none;border:0}.mkw i{display:block;width:24px;height:24px;border-radius:50%;color:#fff;border:2px solid #fff;font:700 12px/20px sans-serif;font-style:normal;text-align:center;box-shadow:0 1px 4px #0007}.mkw i.sel{transform:scale(1.35);box-shadow:0 0 0 3px #12262f,0 2px 6px #0008}
-.lbl{background:#ffffffe6;border:0;border-radius:3px;box-shadow:0 1px 3px #0004;color:var(--ink);font:600 12px/1.2 inherit;padding:1px 5px}.lbl:before{display:none}
+.leaflet-container,.leaflet-tooltip,.leaflet-control{font-family:var(--f)}.lbl{background:#ffffffe6;border:0;border-radius:3px;box-shadow:0 1px 3px #0004;color:var(--ink);font-weight:600;font-size:12px;line-height:1.2;padding:1px 5px}.lbl:before{display:none}
 .mkw i.u{width:20px;height:20px;line-height:15px;background:#fff;color:var(--c);border:2px dashed var(--c);box-shadow:0 1px 3px #0004;font-size:12px}.mkw i.u.sel{box-shadow:0 0 0 3px #12262f}.lbl.u{font-style:italic;color:#444;background:#fffc}.lg{background:#fffffff0;padding:6px 9px;border-radius:6px;box-shadow:0 1px 5px #0004;font-size:12px;line-height:1.7}.lg i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:4px;vertical-align:-1px}.lg label{display:block;border-top:1px solid var(--line);margin-top:3px;padding-top:3px}
 #detail{position:fixed;top:60px;right:14px;width:330px;max-height:calc(100vh - 80px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003;z-index:1000;display:none}
 #detail.open{display:block}#detail img{width:100%;height:190px;object-fit:cover;display:block;border-radius:10px 10px 0 0;background:#dfe7e3}
@@ -714,10 +714,18 @@ body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-
 #detail{top:auto;bottom:0;left:0;right:0;width:auto;max-height:50dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}#detail img{height:140px}
 #detail input,#detail textarea,#detail select,#dayhead input{font-size:16px;padding:6px}
 .lg{font-size:11px;padding:4px 7px;line-height:1.5}.lbl{font-size:11px}}
+#pv{display:none;position:fixed;inset:0;z-index:5000;background:#56655f;overflow:auto}#pv.open{display:block}
+#pvbar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:8px 12px;background:var(--ink);color:#e8f1ee;font-size:13px}#pvbar select{font:inherit;padding:3px 4px;border-radius:4px}#pvbar button{background:#e8f1ee;color:var(--ink)}#pvbar button:disabled{opacity:.5}#pvst{color:#9fd3c9}
+#pvp{padding:12px;display:flex;flex-direction:column;align-items:center;gap:14px}.sc{flex:none}
+.pg{width:194mm;height:280mm;transform-origin:top left;background:#fff;color:var(--ink);display:flex;flex-direction:column;box-shadow:0 2px 12px #0005;overflow:hidden}#pv.land .pg{width:281mm;height:193mm}
+.ph{padding:0 0 2mm;border-bottom:2px solid var(--ink);margin-bottom:2mm;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}.pth{font-size:10px;color:var(--mute);letter-spacing:.12em}.ph h2{margin:0;font:700 21px/1.25 var(--f)}.pd{color:var(--route);margin-right:10px}.ph small{display:block;color:var(--mute);font-size:11px;margin-top:2px}.lgd{font-size:10px;white-space:nowrap;color:var(--mute)}.lgd i{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 3px 0 6px}
+.pw{font-size:11px;line-height:1.5;background:#f1f6f4;border:1px solid #cdd8d2;border-radius:3px;padding:3px 7px;margin-bottom:2mm}.pw b{font-weight:700}.pm{flex:1;min-height:0;border:1px solid #777}.pl{margin:2mm 0 0;padding:0;list-style:none;columns:3;column-gap:10px;font-size:11px;line-height:1.75}#pv.land .pl{columns:4}.pl li{break-inside:avoid;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pl .n{width:16px;height:16px;font-size:10px;display:inline-grid;vertical-align:middle;margin-right:4px}.pl small{color:var(--mute)}
+@media print{body>*:not(#pv){display:none!important}html,body{height:auto!important;display:block!important;overflow:visible!important;background:#fff!important}#pv{position:static!important;background:#fff!important;overflow:visible!important;display:block!important}#pvbar{display:none!important}#pvp{padding:0!important;gap:0!important;display:block!important}.sc{width:auto!important;height:auto!important}.pg{transform:none!important;box-shadow:none!important;break-after:page;page-break-after:always}.sc:last-child .pg{break-after:auto;page-break-after:auto}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
-<header><h1>北歐行程攻略</h1>
-<div id="vm"><button data-v="map">地圖</button><button data-v="split">分割</button><button data-v="text">文字</button></div><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
+<header><h1>2026 北歐行程攻略</h1>
+<div id="vm"><button data-v="map">地圖</button><button data-v="split">分割</button><button data-v="text">文字</button></div><button id="bp">🖨 列印</button><button id="bx">匯出</button><button id="bi">匯入</button><button id="br">重設</button><input id="fi" type="file" accept=".json" hidden></header>
 <main><section id="side"><div id="chips"></div><div id="dayhead"></div><ul id="list"></ul></section><div id="map"></div></main>
+<div id="pv"><div id="pvbar"><b>列印預覽</b><label>範圍 <select id="pvs"><option value="a">全部天數</option><option value="1">目前這天</option></select></label><label>方向 <select id="pvo"><option value="p">直式</option><option value="l">橫式</option></select></label><label>底圖 <select id="pvb"><option value="0">地形圖</option><option value="1">Esri 地形</option><option value="2">衛星</option></select></label><span id="pvst"></span><button id="pvgo">🖨 列印 / 存成 PDF</button><button id="pvx">關閉</button></div><div id="pvp"></div></div><style id="pgs"></style>
 <div id="wx"></div><div id="addp"></div><div id="hint">點地圖放置新地點</div><aside id="detail"></aside>
 <script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
@@ -1037,4 +1045,52 @@ function setVM(v){const b=document.body;b.classList.remove('vm-map','vm-split','
  setTimeout(()=>{map.invalidateSize();if(v!=='text')draw(true)},60)}
 $('#vm').addEventListener('click',e=>{const v=e.target.dataset.v;if(v)setVM(v)});
 let vm0='split';try{vm0=localStorage.getItem('nordic_vm')||'split'}catch(e){}setVM(vm0);
+
+let pvMaps=[],pvPend=0,pvTok=0;const WD=['日','一','二','三','四','五','六'];
+const BL=()=>[topo,esriT,sat,street];
+
+async function wxGet(lat,lon){const k=lat.toFixed(2)+','+lon.toFixed(2);let r=wc[k];
+ if(!r||Date.now()-r.t>6e5){const j=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&timezone=auto&forecast_days=16`)).json();if(!j.current)throw 0;r=wc[k]={t:Date.now(),j}}
+ return r.j}
+async function pvWx(d,i,tok){
+ const p=d.pts[0],el=()=>tok===pvTok?$('#pw'+i):null;
+ const m=d.t.match(/(\d+)\/(\d+)/),date=m?'2026-'+m[1].padStart(2,'0')+'-'+m[2].padStart(2,'0'):null;
+ const stamp=new Date().toLocaleString('zh-TW',{hour12:false,month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+ try{
+  const [j,kp]=await Promise.all([Promise.race([wxGet(p.la,p.lo),new Promise((_,rj)=>setTimeout(rj,10000))]),kpLoad()]);
+  const box=el();if(!box)return;
+  const c=j.current,q=j.daily,x=date?q.time.indexOf(date):0;
+  let s=`<b>${esc(p.n)}</b> 現在 ${c.temperature_2m}°C（體感 ${c.apparent_temperature}°）${wcn(c.weather_code)} · 風 ${c.wind_speed_10m} km/h · 當地 ${c.time.slice(11)}`;
+  if(x<0)s+=` ｜ ${date.slice(5)} 尚未開放預報`;
+  else{const mi=Math.round((new Date(q.sunset[x])-new Date(q.sunrise[x]))/6e4);
+   s+=` ｜ ${q.time[x].slice(5)} 預報：${wcn(q.weather_code[x])} ${Math.round(q.temperature_2m_min[x])}～${Math.round(q.temperature_2m_max[x])}°C · 降雨 ${q.precipitation_probability_max[x]??'—'}% ｜ 🌅 ${q.sunrise[x].slice(11)} 🌇 ${q.sunset[x].slice(11)}（日照 ${Math.floor(mi/60)} 小時 ${mi%60} 分）`}
+  if(kp)s+='<br>'+kpLine(kp,p.la).replace(/^<div>|<\/div>$/g,'');
+  box.innerHTML=s+`<br><span style="color:#5d726c">資料查詢時間 ${stamp}（Open-Meteo${kp?' / NOAA SWPC':''}）</span>`
+ }catch(e){const box=el();if(box)box.textContent='天氣資料無法取得（需要連網）。'}}
+function openPV(){const cur=BL().findIndex(l=>map.hasLayer(l));$('#pvb').value=cur<0||cur>2?0:cur;$('#pv').classList.add('open');buildPV()}
+function closePV(){pvMaps.forEach(m=>m.remove());pvMaps=[];$('#pvp').innerHTML='';$('#pv').classList.remove('open')}
+function pvStat(){$('#pvgo').disabled=pvPend>0;$('#pvst').textContent=pvPend>0?'地圖載入中…('+pvPend+')':'地圖已就緒，可列印'}
+function buildPV(){
+ const myTok=++pvTok;pvMaps.forEach(m=>m.remove());pvMaps=[];pvPend=0;
+ const land=$('#pvo').value==='l',bl=BL()[+$('#pvb').value]||topo;$('#pv').classList.toggle('land',land);
+ $('#pgs').textContent='@page{size:A4 '+(land?'landscape':'portrait')+';margin:8mm}';
+ const list=($('#pvs').value==='1'?[days[di]]:days).filter(d=>d.pts.length);
+ $('#pvgo').disabled=true;$('#pvst').textContent='準備中…';
+ $('#pvp').innerHTML=list.map((d,i)=>{const f=d.pts[0],l=d.pts[d.pts.length-1],m=d.t.match(/(\d+)\/(\d+)/);
+  const ds=m?m[0]+'（週'+WD[new Date(2026,m[1]-1,m[2]).getDay()]+'）':d.t;
+  return `<div class="sc"><div class="pg"><div class="ph"><div><h2><span class="pd">${esc(ds)}</span>${esc(d.t.replace(/^\s*\d+\/\d+\s*/,'')||d.t)}</h2><small>${d.stay?esc(d.stay)+' ・ ':''}${d.pts.length} 個地點</small></div><div class="lgd">${Object.keys(COL).map(k=>`<i style="background:${COL[k]}"></i>${k}`).join('')}</div></div><div class="pw" id="pw${i}">天氣資料載入中…</div><div class="pm" id="pm${i}"></div><ol class="pl">${d.pts.map((p,k)=>`<li><span class="n" style="background:${COL[cat(p)]}">${k+1}</span>${esc(p.n)}${p.t?' <small>'+esc(p.t)+'</small>':''}</li>`).join('')}</ol></div></div>`}).join('')||'<p style="color:#fff">沒有可列印的行程。</p>';
+ const Wp=(land?281:194)*96/25.4,Hp=(land?193:280)*96/25.4,sc=Math.min(1,(innerWidth-24)/Wp);
+ document.querySelectorAll('#pvp .sc').forEach(s=>{s.style.width=Wp*sc+'px';s.style.height=Hp*sc+'px';s.firstElementChild.style.transform='scale('+sc+')'});
+ const DR=[['right',[10,0]],['left',[-10,0]],['top',[0,-10]],['bottom',[0,10]]];
+ requestAnimationFrame(()=>{list.forEach((d,i)=>{
+  const m=L.map($('#pm'+i),{zoomControl:false,zoomSnap:.5,fadeAnimation:false,zoomAnimation:false,markerZoomAnimation:false,inertia:false,dragging:false,scrollWheelZoom:false,touchZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false});
+  const tl=L.tileLayer(bl._url,Object.assign({},bl.options));let done=false;pvPend++;
+  const fin=()=>{if(done||myTok!==pvTok)return;done=true;pvPend--;pvStat()};tl.once('load',fin);setTimeout(fin,12000);tl.addTo(m);
+  const ll=d.pts.map(p=>[p.la,p.lo]);
+  L.polyline(ll,{color:'#b3205a',weight:3,dashArray:'7 6'}).addTo(m);
+  d.pts.forEach((p,k)=>{const dr=DR[k%4];L.marker(ll[k],{interactive:false,icon:L.divIcon({className:'mkw',html:`<i style="background:${COL[cat(p)]}">${k+1}</i>`,iconSize:[24,24]})}).bindTooltip(esc(p.n),{permanent:true,direction:dr[0],offset:dr[1],className:'lbl'}).addTo(m)});
+  m.fitBounds(ll,{padding:[70,70],maxZoom:15,animate:false});pvMaps.push(m)});list.forEach((d,i)=>{pvPend++;pvWx(d,i,myTok).then(()=>{if(myTok===pvTok){pvPend--;pvStat()}})});pvStat()})}
+$('#bp').onclick=openPV;$('#pvx').onclick=closePV;$('#pvgo').onclick=()=>window.print();
+['pvs','pvo','pvb'].forEach(k=>$('#'+k).onchange=buildPV);
+addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#pv').classList.contains('open'))closePV()});
 </script></body></html>
