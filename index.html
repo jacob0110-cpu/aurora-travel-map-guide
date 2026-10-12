@@ -697,6 +697,7 @@ li.leg{margin:0 0 0 20px;padding-left:20px;border-left:2px dashed var(--route);c
 #detail{position:fixed;top:60px;right:14px;width:330px;max-height:calc(100vh - 80px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px #0003;z-index:1000;display:none}
 #detail.open{display:block}#detail img{width:100%;height:190px;object-fit:cover;display:block;border-radius:10px 10px 0 0;background:#dfe7e3}
 #detail .in{padding:10px 12px;display:grid;gap:6px}
+#dh{display:none}
 #detail label{display:grid;gap:1px;font-size:12px;color:var(--mute)}
 #detail input,#detail textarea{border:1px solid var(--line);border-radius:4px;padding:3px 6px;background:#fff;color:var(--ink)}
 #detail .row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -713,7 +714,16 @@ body.vm-text main{grid-template-rows:1fr}body.vm-text #map{display:none}body.vm-
 #list li.pt{padding:9px 4px}.hd{padding:6px 8px;font-size:20px}.ops button{padding:2px 10px;font-size:16px}.n{width:28px;height:28px;font-size:13px}
 #detail{top:auto;bottom:0;left:0;right:0;width:auto;max-height:50dvh;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom)}#detail img{height:140px}
 #detail input,#detail textarea,#detail select,#dayhead input{font-size:16px;padding:6px}
-.lg{font-size:11px;padding:4px 7px;line-height:1.5}.lbl{font-size:11px}}
+.lg{font-size:11px;padding:4px 7px;line-height:1.5}.lbl{font-size:11px}
+#dh{display:flex;align-items:center;gap:8px;padding:8px 48px 8px 12px;min-height:48px;cursor:pointer;position:sticky;top:0;background:var(--panel);z-index:2;border-radius:12px 12px 0 0;border-bottom:1px solid var(--line)}
+#dh:before{content:"";position:absolute;top:4px;left:50%;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:var(--line)}
+#dh b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-top:6px}
+#dh span{color:var(--mute);font-size:12px;padding-top:6px;white-space:nowrap}
+#detail .x{z-index:3;top:8px;min-height:32px}
+#detail.mini{max-height:none;overflow:visible}
+#detail.mini>*:not(#dh):not(.x){display:none}
+#detail.mini #dh{border-bottom:0}
+#list{padding-bottom:64px}}
 #pv{display:none;position:fixed;inset:0;z-index:5000;background:#56655f;overflow:auto}#pv.open{display:block}
 #pvbar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:8px 12px;background:var(--ink);color:#e8f1ee;font-size:13px}#pvbar select{font:inherit;padding:3px 4px;border-radius:4px}#pvbar button{background:#e8f1ee;color:var(--ink)}#pvbar button:disabled{opacity:.5}#pvst{color:#9fd3c9}
 #pvp{padding:12px;display:flex;flex-direction:column;align-items:center;gap:14px}.sc{flex:none}
@@ -894,7 +904,7 @@ function render(){
  map.getContainer().style.cursor=adding?'crosshair':'';
 }
 function all(fit){render();draw(fit)}
-function pickC(i){const c=cand[i];ci=i;sel=-1;wxMe=false;render();draw(false);wxLoad();isM()?map.setView([c.la,c.lo],Math.max(map.getZoom(),13)):map.panTo([c.la,c.lo]);
+function pickC(i){const c=cand[i];ci=i;sel=-1;wxMe=false;render();draw(false);wxLoad();focusPt(c.la,c.lo);
  const D=$('#detail');D.classList.add('open');
  D.innerHTML=`${c.img?`<img alt="" src="${c.img}">`:''}<button class="x" id="cl">✕</button><div class="in"><b style="font-size:15px">${esc(c.n)}</b><div class="tip">${c.c} · 未排入行程${c.r?' · '+esc(c.r):''}</div>${c.w?`<div class="tip" style="color:#b3205a">⚠ ${esc(c.w)}</div>`:''}<p style="white-space:pre-wrap">${esc(c.note||'（無說明）')}</p><div class="tip">${esc(c.a||'')}</div><div class="bar"><button id="cadd">加入「${esc(days[di].t)}」</button></div><div class="tip"><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${c.la},${c.lo}">Google 地圖</a> · <a target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(c.n)}">更多照片</a></div></div>`}
 $('#detail').addEventListener('click',e=>{if(e.target.id!=='cadd'||ci<0)return;const c=cand[ci],a=days[di].pts;
@@ -992,7 +1002,7 @@ async function sum(w,e){
  if(e&&(!zh||!zh.thumbnail))en=await gs('en',e)||await se('en',e);
  return{img:(zh?.thumbnail||en?.thumbnail)?.source,txt:zh?.extract||(en?.extract?'（中文條目不足，以下為英文維基摘要）'+en.extract:''),url:(zh||en)?.content_urls?.desktop?.page}}
 async function pick(i,keep){sel=i;ci=-1;wxMe=false;wxLoad();const p=days[di].pts[i];render();draw(false);
- if(!keep){isM()?map.setView([p.la,p.lo],Math.max(map.getZoom(),13)):map.panTo([p.la,p.lo])}
+ if(!keep){focusPt(p.la,p.lo)}
  const D=$('#detail');D.classList.add('open');
  const q=encodeURIComponent(p.e||p.n);
  D.innerHTML=`<img alt="" ${p.img?`src="${p.img}"`:'hidden'} id="ph"><button class="x" id="cl">✕</button><div class="in">
@@ -1044,6 +1054,29 @@ function setVM(v){const b=document.body;b.classList.remove('vm-map','vm-split','
  try{localStorage.setItem('nordic_vm',v)}catch(e){}
  setTimeout(()=>{map.invalidateSize();if(v!=='text')draw(true)},60)}
 $('#vm').addEventListener('click',e=>{const v=e.target.dataset.v;if(v)setVM(v)});
+
+/* ---- mobile drawer for #detail + keep marker clear of the panel ---- */
+let dMini=true;
+function focusPt(la,lo){
+ if(!isM()){map.panTo([la,lo]);return}
+ const z=Math.max(map.getZoom(),13);
+ requestAnimationFrame(()=>{
+  const D=$('#detail');let ov=0;
+  if(D.classList.contains('open')){const mr=map.getContainer().getBoundingClientRect(),dr=D.getBoundingClientRect();ov=Math.max(0,Math.min(mr.bottom,innerHeight)-Math.max(dr.top,mr.top))}
+  const pt=map.project([la,lo],z).add([0,ov/2]);
+  map.setView(map.unproject(pt,z),z)})}
+function dTitle(){const D=$('#detail'),i=D.querySelector('input[data-f="n"]'),b=D.querySelector('.in>b');return i?i.value:(b?b.textContent:'')}
+function dSync(){
+ const D=$('#detail');if(!D.classList.contains('open')||!D.firstElementChild)return;
+ if(D.firstElementChild.id!=='dh'){const h=document.createElement('div');h.id='dh';D.insertBefore(h,D.firstChild)}
+ const h=D.firstElementChild,m=isM()&&dMini;
+ D.classList.toggle('mini',m);
+ h.innerHTML='<b></b><span></span>';h.firstChild.textContent=dTitle();h.lastChild.textContent=m?'▲ 展開':'▼ 收合'}
+function dRefocus(){const t=sel>=0?days[di].pts[sel]:(ci>=0?cand[ci]:null);if(t)focusPt(t.la,t.lo)}
+new MutationObserver(dSync).observe($('#detail'),{childList:true});
+$('#detail').addEventListener('click',e=>{if(!isM()||!e.target.closest('#dh'))return;dMini=!dMini;dSync();dRefocus()});
+$('#detail').addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.f==='n'){const b=$('#dh b');if(b)b.textContent=e.target.value}});
+addEventListener('resize',dSync);
 let vm0='split';try{vm0=localStorage.getItem('nordic_vm')||'split'}catch(e){}setVM(vm0);
 
 let pvMaps=[],pvPend=0,pvTok=0;const WD=['日','一','二','三','四','五','六'];
